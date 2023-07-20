@@ -29,4 +29,4 @@ Instructions
 
 Documentation
 -------------
-- User Guide https://github.com/pshepetko/org.idempiere.chatgpt/blob/master/downloads/UserGuide_chatGPT_v1.0.0.pdf
+- User Guide https://github.com/pshepetko/org.idempiere.chatGPT/blob/master/downloads/UserGuide_chatgGPT_v1.0.0.pdf
