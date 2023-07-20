@@ -1,0 +1,170 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.idempiere</groupId>
+		<artifactId>org.idempiere.parent</artifactId>
+		<version>${revision}</version>
+		<relativePath>../../idempiere/org.idempiere.parent/pom.xml</relativePath>
+	</parent>
+	<artifactId>org.idempiere.chatGPT</artifactId>
+	<packaging>eclipse-plugin</packaging>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<!-- https://mvnrepository.com/artifact/com.theokanning.openai-gpt3-java/api -->
+								<artifactItem>
+								    <groupId>com.theokanning.openai-gpt3-java</groupId>
+								    <artifactId>api</artifactId>
+								    <version>0.14.0</version>
+								</artifactItem>
+								<!-- https://mvnrepository.com/artifact/com.theokanning.openai-gpt3-java/service -->
+								<artifactItem>
+								    <groupId>com.theokanning.openai-gpt3-java</groupId>
+								    <artifactId>service</artifactId>
+								    <version>0.14.0</version>
+								</artifactItem>
+								<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+								<artifactI>
+								    <groupId>com.fasterxml.jackson.core</groupId>
+								    <artifactId>jackson-databind</artifactId>
+								    <version>2.15.2</version>
+								</artifactI>
+								<artifactI>
+									<groupId>com.fasterxml.jackson.core</groupId>
+								    <artifactId>jackson-core</artifactId>
+								    <version>2.15.2</version>
+								</artifactI>
+								<artifactI>
+								    <groupId>com.fasterxml.jackson.core</groupId>
+								    <artifactId>jackson-databind</artifactId>
+								    <version>2.15.2</version>
+								</artifactI>
+								<!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
+								<artifactI>
+								    <groupId>com.squareup.okhttp3</groupId>
+ 									<artifactId>okhttp</artifactId>
+								    <version>3.14.9</version>
+								</artifactI>
+								<!-- https://mvnrepository.com/artifact/com.squareup.retrofit2/retrofit -->
+								<artifactI>
+								    <groupId>com.squareup.retrofit2</groupId>
+								    <artifactId>retrofit</artifactId>
+								    <version>2.7.1</version>
+								</artifactI>
+								<!-- https://mvnrepository.com/artifact/com.squareup.retrofit2/converter-jackson -->
+								<artifactI>
+								    <groupId>com.squareup.retrofit2</groupId>
+								    <artifactId>converter-jackson</artifactId>
+								    <version>2.9.0</version>
+								</artifactI>
+								<artifactI>
+								    <groupId>com.squareup.retrofit2</groupId>
+								    <artifactId>adapter-rxjava2</artifactId>
+								    <version>2.9.0</version>
+								</artifactI>
+								<artifactI>
+								    <groupId>com.fasterxml.jackson.core</groupId>
+								    <artifactId>jackson-annotations</artifactId>
+								    <version>2.15.2</version>
+								</artifactI>
+								<artifactI>
+									<groupId>org.jetbrains.kotlin</groupId>
+									<artifactId>kotlin-runtime</artifactId>
+									<version>1.1.2-3</version>
+								</artifactI>
+																<!-- https://mvnrepository.com/artifact/com.squareup.retrofit2/adapter-rxjava2 -->
+								<artifactI>
+								    <groupId>com.squareup.retrofit2</groupId>
+								    <artifactId>adapter-rxjava2</artifactId>
+								    <version>2.9.0</version>
+								</artifactI>
+								<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
+								<artifactI>
+								    <groupId>com.fasterxml.jackson.core</groupId>
+								    <artifactId>jackson-annotations</artifactId>
+								    <version>2.15.2</version>
+								</artifactI>
+								<artifactI>
+									<groupId>org.jetbrains.kotlin</groupId>
+									<artifactId>kotlin-runtime</artifactId>
+									<version>1.1.2-3</version>
+								</artifactI>
+								<!-- https://mvnrepository.com/artifact/com.squareup.okio/okio -->
+								<artifactI>
+								    <groupId>com.squareup.okio</groupId>
+								    <artifactId>okio</artifactId>
+								    <version>1.13.0</version>
+								</artifactI>
+								<!-- https://mvnrepository.com/artifact/com.theokanning.openai-gpt3-java/client -->
+								<artifactI>
+								    <groupId>com.theokanning.openai-gpt3-java</groupId>
+								    <artifactId>client</artifactId>
+								    <version>0.14.0</version>
+								</artifactI>
+								<artifactI>
+									<groupId>io.reactivex.rxjava2</groupId>
+									<artifactId>rxjava</artifactId>
+									<version>2.2.4</version>
+								</artifactI>
+								<!-- https://mvnrepository.com/artifact/org.reactivestreams/reactive-streams -->
+								<artifactI>
+								    <groupId>org.reactivestreams</groupId>
+								    <artifactId>reactive-streams</artifactId>
+								    <version>1.0.4</version>
+								</artifactI>
+								<!-- https://mvnrepository.com/artifact/jakarta.persistence/jakarta.persistence-api -->
+								<artifactI>
+								    <groupId>jakarta.persistence</groupId>
+								    <artifactId>jakarta.persistence-api</artifactId>
+								    <version>3.1.0</version>
+								</artifactI>
+								<!-- https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api -->
+								<artifactI>
+								    <groupId>jakarta.validation</groupId>
+								    <artifactId>jakarta.validation-api</artifactId>
+								    <version>3.0.2</version>
+								</artifactI>
+								<!-- https://mvnrepository.com/artifact/commons-lang/commons-lang -->
+								<artifactI>
+								    <groupId>commons-lang</groupId>
+								    <artifactId>commons-lang</artifactId>
+								    <version>2.6</version>
+								</artifactI>
+								<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+								<artifactI>
+								<groupId>org.apache.httpcomponents</groupId>
+								<artifactId>httpcore</artifactId>
+								<version>4.2.2</version>
+								</artifactI>
+								<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+								<artifactI>
+								    <groupId>org.slf4j</groupId>
+								    <artifactId>slf4j-api</artifactId>
+								    <version>2.0.7</version>
+								</artifactI>
+
+							</artifactItems>							
+							<outputDirectory>lib</outputDirectory>
+							<stripVersion>true</stripVersion>
+							<overWriteReleases>true</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

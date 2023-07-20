@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="org.idempiere.chatGPT.process.otherDataUpdate"
+         name="otherDataUpdate"
+         point="org.adempiere.base.Process">
+      <process
+            class="org.idempiere.chatGPT.process.otherDataUpdate">
+      </process>
+   </extension>
+   <extension
+         id="org.idempiere.chatGPT.process.productUpdate"
+         name="ProductUpdate"
+         point="org.adempiere.base.Process">
+      <process
+            class="org.idempiere.chatGPT.process.productUpdate">
+      </process>
+   </extension>
+   <extension
+         id="org.idempiere.chatGPT.process.chatGPTTestProcess"
+         name="chatGPTTestProcess"
+         point="org.adempiere.base.Process">
+      <process
+            class="org.idempiere.chatGPT.process.chatGPTTestProcess">
+      </process>
+   </extension>
+   <extension
+         id="org.idempiere.chatGPT.form.chatGPTForm"
+         name="chatGPTForm"
+         point="org.adempiere.webui.Form">
+      <form
+            class="org.idempiere.chatGPT.form.chatGPTForm">
+      </form>
+   </extension>
+
+
+</plugin>
