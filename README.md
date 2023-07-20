@@ -20,7 +20,7 @@ Contributors
 
 Instructions
 ------------
-- 1)download the TMS plugin from https://github.com/pshepetko/org.idempiere.chatgpt/blob/master/downloads/
+- 1)download the chatGPT plugin from https://github.com/pshepetko/org.idempiere.chatgpt/blob/master/downloads/
 - 2) In Apache Felix Web Console: 
 - 2.1) Install plugin 
 - 2.2) Select file 
