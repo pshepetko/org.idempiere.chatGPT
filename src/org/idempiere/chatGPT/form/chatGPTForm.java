@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.Vector;
 import java.util.logging.Level;
 
+import org.adempiere.webui.apps.AEnv;
+import org.adempiere.webui.apps.form.MFARegisterForm;
 import org.adempiere.webui.component.Button;
 import org.adempiere.webui.component.Grid;
 import org.adempiere.webui.component.GridFactory;
@@ -17,17 +19,23 @@ import org.adempiere.webui.component.Row;
 import org.adempiere.webui.component.Rows;
 import org.adempiere.webui.component.Textbox;
 import org.adempiere.webui.component.WListbox;
+import org.adempiere.webui.component.Window;
 import org.adempiere.webui.panel.ADForm;
 import org.adempiere.webui.panel.CustomForm;
 import org.adempiere.webui.session.SessionManager;
+import org.adempiere.webui.util.IServerPushCallback;
+import org.adempiere.webui.util.ServerPushTemplate;
 import org.adempiere.webui.util.ZKUpdateUtil;
 import org.compiere.minigrid.IMiniTable;
+import org.compiere.model.MQuery;
 import org.compiere.model.MSysConfig;
+import org.compiere.model.SystemIDs;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Msg;
+import org.zkoss.zk.ui.Desktop;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.Borderlayout;
@@ -71,9 +79,44 @@ import org.idempiere.chatGPT.base.CustomFormController;
 	private ResultSetMetaData rsmd; 
 	private int columnsNumber = 0;
 	
+	private String		FormVerNo = "[v.2.00] ";
+	
 	// Set ChatGPT endpoint and API key
 	private String		chatGPT_API_Key = MSysConfig.getValue("chatGPT_API_Key",Env.getAD_Client_ID(Env.getCtx()));
 	private String endpoint = "https://api.openai.com/v1/chat/completions";
+	
+	  // SYSTEM_TASK_MESSAGE need for training chatGPT
+	  private static final String SYSTEM_TASK_MESSAGE1 = 
+	          "iDempiere use table M_Product for Products"+
+	          " and table C_BPartner for Business Partners"+ 
+	          " and table M_ProductPrice for Price Lists "
+	          + " and table C_Project for Project"
+	          + " and table C_Order for Orders "
+	          + " and table C_Invoice for Invoices "
+	          + " and table M_InOut for Shipment and Receipt "
+	          + " and table M_Storage for Stock of Product "
+	          + " and table C_Region for Region "
+	          + " and table C_Country for Country "
+	          + " and table C_Currency for Currency "
+	          + " and table AD_Form for Forms "
+	          + " and table AD_Window for Windows "
+	          + " and table AD_Process for Process "
+	          + " and table AD_InfoWindow for InfoWindows "
+	          + " Don't add anything else in the end before you respond with the JSONS."+
+	          "Don't say anything else. Respond only with the SQL." +
+	          "Don't add anything else in the end after you respond with the JSON.";
+	  
+	  private static final String SYSTEM_TASK_MESSAGE2 = 
+	           "iDempiere use table AD_Form for Form."
+ 	          + " and table AD_Window for Window."
+ 	          + " and table AD_Window for Document."
+ 	          + " and table AD_Process for Process."
+ 	          + " and table AD_Process for Report."
+ 	          + " and table AD_InfoWindow for InfoWindow. "
+	          + " Don't add anything else in the end before you respond with the JSONS."+
+	          " Don't say anything else."
+	          + " Respond only with the SQL. Use LOWER in SQL." + 
+	          "Don't add anything else in the end after you respond with the JSON.";
 	
     /**
      * Default constructor.
@@ -189,10 +232,30 @@ import org.idempiere.chatGPT.base.CustomFormController;
 
     	Row row = new Row();
         rows.appendChild(row);
-        Label label = new Label("Enter a question for the chatGPT");
+        Label label = new Label(FormVerNo+"This Form under reconstruction!");//"Enter a question for the chatGPT.");
         label.setStyle("font-weight: bold;");
-        row.appendCellChild(label, 3);       
-
+        row.appendCellChild(label, 3);  
+  //reconstruction    
+ /*     	row = new Row();
+        rows.appendChild(row);
+        Label label1 = new Label("For example:");
+        label1.setStyle("font-weight: normal;");
+        row.appendCellChild(label1, 3);  
+        
+      	row = new Row();
+        rows.appendChild(row);
+        Label label2 = new Label("1. Create report: 1.1 Create the report about Name of Products; 1.2 Create the report about Invoice of Business Partners");
+        label2.setStyle("font-weight: normal;");
+        row.appendCellChild(label2, 3);  
+        
+      	row = new Row();
+        rows.appendChild(row);
+        Label label3 = new Label("2.Open PO like Windows,Forms,InfoWindows, and Proceses : 2.1 Open  the document called Sales Order; 2.2 Open the infowindow called Order Info; 2.3 Open the process called Auto Allocation .");
+        label3.setStyle("font-weight: normal;");
+        row.appendCellChild(label3, 3);  
+  */      
+       
+        
         row = new Row();
         rows.appendChild(row);
         row.appendChild(m_lblQuestion.rightAlign());
@@ -206,7 +269,7 @@ import org.idempiere.chatGPT.base.CustomFormController;
         row = new Row();
         rows.appendChild(row);
         row.appendCellChild(new Separator(), 3);
-    }
+   }
  
 
     /**
@@ -254,13 +317,17 @@ import org.idempiere.chatGPT.base.CustomFormController;
         //  new Question
         else if (event.getTarget().equals(m_btnReset))
         {       	
-        	m_txbQuestionField.setValue("");
-        	m_tblData.clearTable();
-        	m_txbQuestionField.setFocus(true);
+        	 //reconstruction 
+        	//m_txbQuestionField.setValue("");
+        	//m_tblData.clearTable();
+        	//m_txbQuestionField.setFocus(true);
+			Messagebox.show( "This Form under reconstruction!", "Info",Messagebox.OK, Messagebox.INFORMATION);
+        	
         }
         else if (event.getTarget().equals(m_txbQuestionField))
         {
-        	chatGPTconnect();
+        	//chatGPTconnect(); //reconstruction 
+        	Messagebox.show( "This Form under reconstruction!", "Info",Messagebox.OK, Messagebox.INFORMATION);
         }
         
         else if (event.getTarget().equals(m_btnClose))
@@ -272,24 +339,48 @@ import org.idempiere.chatGPT.base.CustomFormController;
 
     public void chatGPTconnect() throws Exception 
     {
+         
 		if ((chatGPT_API_Key == null || chatGPT_API_Key.length() == 0) == true)		
 		{
 			Messagebox.show( "You didn't add chatGPT API Key to System Config!", "Error",Messagebox.OK, Messagebox.ERROR);
 		} else
 			{
-			  String  TextMsg= m_txbQuestionField.getValue().replaceAll("report", "query");
+				String object_id="";
+				String  TextMsg= m_txbQuestionField.getValue().replaceAll("Create the report", "Create the query");
 			  
-			    try {
-	    	 
-			      // Send input to ChatGPT API and receive response
-			      String response = ChatGPT.sendQuery(TextMsg, endpoint, chatGPT_API_Key);
+			  if (TextMsg.toLowerCase().contains("form"))
+				  object_id= "AD_Form_ID";
+			  else if (TextMsg.toLowerCase().contains("infowindow")||TextMsg.toLowerCase().contains("info window"))
+				  object_id= "AD_InfoWindow_ID";
+			  else if (TextMsg.toLowerCase().contains("window")||TextMsg.toLowerCase().contains("document"))
+				  object_id= "AD_Window_ID";
+			  else if (TextMsg.toLowerCase().contains("report") || TextMsg.toLowerCase().contains("process") )
+				  object_id= "AD_Process_ID";			  
+			  else 
+				  object_id= "notype";
+			
+			  
+			    try
+			    {
+			    	String response ="";
+			      // Send input to ChatGPT API and receive response			    	
+			     response = ChatGPT.sendQuery(TextMsg, endpoint, chatGPT_API_Key,SYSTEM_TASK_MESSAGE2);
 			      
-			    if (response.substring(0,6).equalsIgnoreCase("SELECT")) 
-
-			    		updateResults(response);
-			    else
-			    	Messagebox.show("Answer error 1! Can you formulate your question correctly for me because I'm just learning!)) "+ response, "Info",Messagebox.OK, Messagebox.INFORMATION);
-					
+				    if (response.substring(0,6).equalsIgnoreCase("SELECT")) 
+				    {				    	
+				    	//update table of form
+				    		updateResults(response);
+				    		
+				    		// open PO
+				    		if (object_id.equals("notype") == false)
+				    			openPO(response,object_id);
+				    		
+				    		log.log(Level.INFO,"Response from chatGPT: ", response);
+				    }
+				    else
+				    {
+				    	Messagebox.show( response, "Info",Messagebox.OK, Messagebox.INFORMATION);
+				    }	
  			      log.log(Level.INFO,"Response: {}", response);
 			    } catch (JSONException e) {
 			    	log.log(Level.INFO, "Error parsing API response: {}", e.getMessage());
@@ -298,6 +389,30 @@ import org.idempiere.chatGPT.base.CustomFormController;
 			    }
 			  
 			}
+    }
+    
+    
+    public void openPO(String resp,String object_id) throws Exception 
+    {
+    	int po_id = DB.getSQLValue(null, "SELECT "+object_id+" FROM ("+resp.replace(";", "")+") AS query;");
+    	if (po_id >0)
+    		
+    		switch (object_id) {
+    		  case "AD_Form_ID":
+    	    		SessionManager.getAppDesktop().openForm(po_id);
+    		    break;
+    		  case "AD_InfoWindow_ID":
+  	    		SessionManager.getAppDesktop().openInfo(po_id);
+  	    		break;
+    		  case "AD_Window_ID":
+  	    		SessionManager.getAppDesktop().openWindow(po_id,null);
+  	    		break;    		
+    		  case "AD_Process_ID":
+  	    		SessionManager.getAppDesktop().openProcessDialog(po_id,false);
+  	    		break;
+    		  default: Messagebox.show( "ERROR OPEN PO : "+object_id+"="+po_id, "Info",Messagebox.OK, Messagebox.INFORMATION);
+
+    		}
     }
     
   public Vector<Vector<Object>> getData(String sql)
@@ -366,6 +481,8 @@ import org.idempiere.chatGPT.base.CustomFormController;
 		// TODO Auto-generated method stub
 		
 	}
+	
+
 
 }
 

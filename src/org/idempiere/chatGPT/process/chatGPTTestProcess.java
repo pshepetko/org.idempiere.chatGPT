@@ -34,7 +34,6 @@ public class chatGPTTestProcess extends CustomProcess  {
 
 	private String		processVerNo = "[v.1.00] ";
 	private String 		p_TextMsg="";
-	private String		chatGPT_API_Key = MSysConfig.getValue("chatGPT_API_Key",Env.getAD_Client_ID(Env.getCtx()));
 	private String		result="";
 	
 	@Override
@@ -54,6 +53,7 @@ public class chatGPTTestProcess extends CustomProcess  {
 	
 	@Override
 	protected String doIt() throws Exception {
+		String		chatGPT_API_Key = MSysConfig.getValue("chatGPT_API_Key",Env.getAD_Client_ID(Env.getCtx()));
 		if ((chatGPT_API_Key == null || chatGPT_API_Key.length() == 0) == true)		
 		{
 			result="ERROR: You didn't add chatGPT API Key to System Config!";

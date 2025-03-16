@@ -22,24 +22,9 @@ import com.google.gson.Gson;
 
 public class ChatGPT {
   private static final Logger LOGGER = LoggerFactory.getLogger(ChatGPT.class);
-  // SYSTEM_TASK_MESSAGE need for training chatGPT
-  private static final String SYSTEM_TASK_MESSAGE = 
-          "iDempiere use table M_Product for Products"+
-          " and table C_BPartner for Business Partners"+ 
-          " and table M_ProductPrice for Price Lists "
-          + " and table C_Project for Project"
-          + " and table C_Order for Orders "
-          + " and table C_Invoice for Invoices "
-          + " and table M_InOut for Shipment and Receipt "
-          + " and table M_Storage for Stock of Product "
-          + " and table C_Region for Region "
-          + " and table C_Country for Country "
-          + " and table C_Currency for Currency "
-          + " Don't add anything else in the end before you respond with the JSONS."+
-          "Don't say anything else. Respond only with the SQL." +
-          "Don't add anything else in the end after you respond with the JSON.";
 
-  public static String sendQuery(String input, String endpoint, String apiKey) {
+
+  public static String sendQuery(String input, String endpoint, String apiKey, String sysMessage) {
     // Build input and API key params
     JSONObject payload = new JSONObject();
     JSONObject sys_message = new JSONObject();
@@ -47,7 +32,7 @@ public class ChatGPT {
     JSONArray messageList = new JSONArray();
 
     sys_message.put("role", "system");
-    sys_message.put("content",  SYSTEM_TASK_MESSAGE);
+    sys_message.put("content",  sysMessage);
     message.put("role", "user");
     message.put("content", input);
 
@@ -56,7 +41,7 @@ public class ChatGPT {
     
     System.out.print(messageList.toString());
 
-    payload.put("model", "gpt-3.5-turbo"); // model is important
+    payload.put("model", "gpt-4o"); // model is important
     payload.put("messages", messageList);
     payload.put("temperature", 0.7);
 
@@ -91,8 +76,7 @@ public class ChatGPT {
           responseList.add(responseString);
         }
        
-        String Response = responseList.toString();
-        return Response.substring(1, (Response.length()-1));
+        return responseList.toString().substring(1, (responseList.toString().length()-1));
 
       } catch (IOException | JSONException e) {
         LOGGER.error("Error sending request: {}", e.getMessage());

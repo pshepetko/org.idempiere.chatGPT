@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: chatGPT plugin
 Bundle-SymbolicName: org.idempiere.chatGPT;singleton:=true
-Bundle-Version: 10.0.0.qualifier
+Bundle-Version: 12.0.0.qualifier
 Bundle-ClassPath: .,
  lib/api.jar,
  lib/service.jar,
@@ -29,18 +29,18 @@ Export-Package:
  org.idempiere.chatGPT.component,
  org.idempiere.chatGPT.form,
  org.idempiere.chatGPT.process
-Require-Bundle: org.adempiere.base;bundle-version="7.1.0",
- org.adempiere.plugin.utils;bundle-version="7.1.0",
- org.adempiere.ui;bundle-version="7.1.0",
- org.adempiere.ui.zk;bundle-version="7.1.0",
- org.apache.httpcomponents.httpclient,
- org.junit;bundle-version="4.12.0",
- org.idempiere.zk.extra;bundle-version="0.0.0",
- zk;bundle-version="8.6.0",
- zcommon;bundle-version="8.6.0",
- zhtml;bundle-version="8.6.0",
- zul;bundle-version="8.6.0",
- com.sun.activation.jakarta.activation;bundle-version="1.2.1"
+Require-Bundle: org.adempiere.base;bundle-version="12.0.0",
+ org.adempiere.plugin.utils;bundle-version="12.0.0",
+ org.adempiere.ui;bundle-version="12.0.0",
+ org.adempiere.ui.zk;bundle-version="12.0.0",
+ org.apache.httpcomponents.httpclient;bundle-version="4.5.13",
+ org.junit;bundle-version="4.13.2",
+ org.idempiere.zk.extra;bundle-version="12.0.0",
+ zk;bundle-version="10.0.1",
+ zcommon;bundle-version="10.0.1",
+ zhtml;bundle-version="10.0.1",
+ zul;bundle-version="10.0.1",
+ com.sun.activation.jakarta.activation;bundle-version="1.2.2"
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.idempiere.tms;singleton:=true
