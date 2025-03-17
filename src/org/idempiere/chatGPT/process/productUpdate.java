@@ -29,7 +29,7 @@ import org.idempiere.chatGPT.base.CustomProcess;
  */
 public class productUpdate extends CustomProcess  {
 
-	private String		processVerNo = "[v.1.00] ";
+	private String		processVerNo = "[v.2.00] ";
 	private int 		p_M_Product_ID=0;
 	private String		chatGPT_API_Key = MSysConfig.getValue("chatGPT_API_Key",Env.getAD_Client_ID(Env.getCtx()));
 	private String		result="";

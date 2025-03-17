@@ -38,7 +38,7 @@ import org.idempiere.chatGPT.base.CustomProcess;
  */
 public class otherDataUpdate extends CustomProcess  {
 
-	private String		processVerNo = "[v.1.00] ";
+	private String		processVerNo = "[v.2.00] ";
 	private int 		p_AD_Message_ID=0;
 	private int 		p_AD_Window_ID=0;
 	private int 		p_AD_Menu_ID=0;

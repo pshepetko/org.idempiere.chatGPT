@@ -10,12 +10,12 @@ Features
 --------
 - Repository: https://github.com/pshepetko/org.idempiere.chatgpt
 - License: GPL 2
-- Version: 1.0.1a
+- Version: 2.0.0a for iDempiere 12
 
 
 Contributors
 ------------
-- 2023 PShepetko <pshepetko@gmail.com>.
+- 2025 PShepetko <pshepetko@gmail.com>.
 
 
 Instructions
@@ -25,8 +25,8 @@ Instructions
 - 2.1) Install plugin 
 - 2.2) Select file 
 - 2.3) Install and Update
-
+- 3) Use items of menu "chatGPT Plugin" for test
 
 Documentation
 -------------
-- User Guide https://github.com/pshepetko/org.idempiere.chatGPT/blob/master/downloads/UserGuide_chatgGPT_v1.0.0.pdf
+- User Guide https://github.com/pshepetko/org.idempiere.chatGPT/blob/master/downloads/UserGuide_chatgGPT_v1.0.0.pdf (will be update latter)

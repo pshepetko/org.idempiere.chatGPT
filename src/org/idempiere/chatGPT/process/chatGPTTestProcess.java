@@ -32,7 +32,7 @@ import java.util.logging.Level;
  */
 public class chatGPTTestProcess extends CustomProcess  {
 
-	private String		processVerNo = "[v.1.00] ";
+	private String		processVerNo = "[v.2.00] ";
 	private String 		p_TextMsg="";
 	private String		result="";
 	
